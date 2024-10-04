@@ -1,10 +1,3 @@
-// const buttons = document.querySelectorAll('.button')
-// buttons.forEach(button => {
-//     button.addEventListener('click', () => {
-//         alert('Item added to cart')
-//     })
-// })
-
 let cart = [];
 
 
@@ -41,7 +34,7 @@ const fetchData = async (sorter = null) => {
 
         let output = ''
 
-        data.forEach(({ imageUrl, id, title, date, location, price }) => {
+        data.forEach(({ imageUrl, id, title, date, location, price, company }) => {
             output += `
                 <div class="content">
                     <img src="${imageUrl}" alt="${id}" loading="lazy" />
@@ -62,14 +55,14 @@ const fetchData = async (sorter = null) => {
                                 data-location="${location}" 
                                 data-company="${company}">Edit</button>
 
-                            <button class="delete" data-id="${id}">Delete</button>
+                            <button class="delete" 
+                                data-id="${id}">Delete</button>
                         </div>
                     </div>
                 </div>
             `
         })
         contentDisplay.innerHTML = output
-
 
         // event listener for add to cart
         const addToCartButtons = document.querySelectorAll('.add-to-cart')
@@ -82,7 +75,60 @@ const fetchData = async (sorter = null) => {
                 addToCart({ id, title, price, quantity: 1 })
             })
         })
+        function addToCart(product) {
+            const existingProduct = cart.find(item => item.id === product.id);
 
+            if (existingProduct) {
+                existingProduct.quantity += 1;
+            } else {
+                cart.push(product);
+            }
+
+            updateCartDisplay();
+            updateCartSubtotal();
+            updateCartCount();
+
+            cartProducts.style.display = 'block';
+        }
+        function updateCartDisplay() {
+            cartItemsDisplay.innerHTML = '';
+
+            cart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('cart-item');
+                itemElement.innerHTML = `
+                    <p>${item.title} x (${item.quantity}) - ksh.${item.price * item.quantity}</p>
+                `;
+                cartItemsDisplay.appendChild(itemElement);
+            });
+        }
+
+        // cart subtotal
+        function updateCartSubtotal() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+            // cartSubtotal.innerHTML = `ksh.${subtotal}`
+            cartSubtotal.textContent = subtotal.toFixed(2);
+        }
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0)
+            cartCount.textContent = count
+            cartCount.style.display = count > 0 ? 'inline-block' : 'none'
+        }
+
+        cartIcon.addEventListener('click', () => {
+            if (cartProducts.style.display === 'block') {
+                cartProducts.style.display = 'none';
+            } else {
+                cartProducts.style.display = 'block';
+            }
+        })
+
+        document.querySelector('#close-cart').addEventListener('click', () => {
+            cartProducts.style.display = 'none'
+        })
+
+
+        // view an event popup
         document.querySelectorAll('.view').forEach(button => {
             button.addEventListener('click', () => {
                 const id = button.getAttribute('data-id')
@@ -96,7 +142,6 @@ const fetchData = async (sorter = null) => {
                     document.getElementById('popup-company').textContent = `Company: ${selectedItem.company}`
                     document.getElementById('popup-price').textContent = selectedItem.price
 
-                    // Show popup
                     viewPopup.style.display = 'flex';
                 }
             })
@@ -105,62 +150,6 @@ const fetchData = async (sorter = null) => {
         console.log(error)
     }
 }
-// add a product to cart
-function addToCart(product) {
-    const existingProduct = cart.find(item => item.id === product.id)
-
-    if (existingProduct) {
-        existingProduct.quantity += 1;
-    } else {
-        cart.push(product)
-    }
-    // update cart display and subtotal
-    updateCartDisplay()
-    updateCartSubtotal()
-    updateCartCount()
-
-    cartProducts.style.display = 'block';
-}
-// cart display
-function updateCartDisplay() {
-    cartItemsDisplay.innerHTML = ''
-
-    cart.forEach(item => {
-        const itemElement = document.createElement('div')
-        itemElement.classList.add('cart-item')
-        itemElement.innerHTML = `
-            <p>${item.title} x (${item.quantity}) - ksh.${item.price * item.quantity}</p>
-        `
-        cartItemsDisplay.appendChild(itemElement)
-    })
-}
-
-// cart subtotal
-function updateCartSubtotal() {
-    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-    // cartSubtotal.innerHTML = `ksh.${subtotal}`
-    cartSubtotal.textContent = subtotal.toFixed(2);
-}
-function updateCartCount() {
-    const count = cart.reduce((sum, item) => sum + item.quantity, 0)
-    cartCount.textContent = count
-    cartCount.style.display = count > 0 ? 'inline-block' : 'none'
-}
-
-cartIcon.addEventListener('click', () => {
-    if (cartProducts.style.display === 'block') {
-        cartProducts.style.display = 'none';
-    } else {
-        cartProducts.style.display = 'block';
-    }
-})
-
-document.querySelector('#close-cart').addEventListener('click', () => {
-    cartProducts.style.display = 'none'
-})
-
-
-fetchData()
 
 const priceascending = document.querySelector('#price-asc')
 const pricedescending = document.querySelector('#price-desc')
@@ -171,13 +160,15 @@ pricedescending.addEventListener('click', () => fetchData('price-desc'))
 sortdateasc.addEventListener('click', () => fetchData('date'))
 
 const subtotal = document.querySelector('#subtotal')
-// const total = document.querySelector('#subtotal')
 
-document.querySelector('#close-cart').addEventListener('click', () => {
-    document.querySelector('.cart-products').style.display = 'none'
-})
+// document.querySelector('#close-cart').addEventListener('click', () => {
+//     document.querySelector('.cart-products').style.display = 'none'
+// })
 
 
+fetchData()
+
+// add new event
 const popupForm = document.getElementById('popup-form');
 const addDataButton = document.querySelector('#add-data-button');
 const closeButton = document.getElementById('close-popup');
@@ -223,51 +214,70 @@ dataForm.addEventListener('submit', async (event) => {
         const addedEvent = await response.json();
         console.log('Event added:', addedEvent);
 
-        // Optionally, update the UI to show the newly added event or close the form
-        // Here you could also clear the form fields and hide the popup
-        popupForm.style.display = 'none'; // Hide the popup
-        dataForm.reset(); // Reset the form fields
-
+        popupForm.style.display = 'none';
+        dataForm.reset();
     } catch (error) {
         console.error('Error:', error);
     }
+})
 
-    // Assuming you have these variables declared globally
-    
-    
-    // Open edit popup and populate form
-    document.addEventListener('DOMContentLoaded', () => {
-        const closeEditPopup = document.getElementById('close-edit-popup');
-        const editDataForm = document.getElementById('editDataForm');
-        const editPopupForm = document.getElementById('edit-popup-form');
-        
-        document.addEventListener('click', (e) => {
-            
-            if (e.target.classList.contains('.edit')) {
-                // const { id, title, imageurl, price, date, location, company } = e.target.dataset;
-                const
-                
-                // Set the form fields with the current values
-                document.getElementById('edit-imageUrl').value = imageurl;
-                document.getElementById('edit-title').value = title;
-                document.getElementById('edit-price').value = price;
-                document.getElementById('edit-date').value = date;
-                document.getElementById('edit-location').value = location;
-                document.getElementById('edit-company').value = company;
-                
-                // Store the ID for later use
-                editDataForm.dataset.id = id;
-                
-                // Display the popup
-                editPopupForm.style.display = 'block';
-            }
-        });
-    })
+
+
+// Open edit popup and populate form
+document.addEventListener('DOMContentLoaded', () => {
+    const closeEditPopup = document.getElementById('close-edit-popup');
+    const editDataForm = document.getElementById('editDataForm');
+    const editPopupForm = document.getElementById('edit-popup-form');
+
+    if (!closeEditPopup) {
+        console.error('Close button not found');
+    } else {
+        console.log('Close button found'); // Make sure the button is present in the DOM
+    }
+
+    // Verify if there are any buttons with the class 'edit'
+    const editButtons = document.querySelectorAll('.edit');
+    if (editButtons.length === 0) {
+        console.error("No .edit buttons found on the page");
+    } else {
+        console.log(`Found ${editButtons.length} .edit buttons`); // Check if the buttons exist
+    }
 
     // Close the popup
     closeEditPopup.addEventListener('click', () => {
+        console.log("Close button clicked");
         editPopupForm.style.display = 'none';
     });
+
+    document.body.addEventListener('click', (e) => {
+        if (e.target.classList.contains('edit')) {
+            console.log('Edit button clicked');
+
+            console.log('Before:', editPopupForm.style.display);
+
+
+            const { id, title, imageurl, price, date, location, company } = e.target.dataset;
+
+            // Set the form fields with the current values
+            document.getElementById('edit-imageUrl').value = imageurl;
+            document.getElementById('edit-title').value = title;
+            document.getElementById('edit-price').value = price;
+            document.getElementById('edit-date').value = date;
+            document.getElementById('edit-location').value = location;
+            document.getElementById('edit-company').value = company;
+
+
+            // Store the ID for later use
+            editDataForm.dataset.id = id;
+
+            // Display the popup
+            editPopupForm.style.display = 'flex';
+
+            console.log('After:', editPopupForm.style.display);
+        }
+    })
+
+
 
     // Handle form submission
     editDataForm.addEventListener('submit', async (e) => {
@@ -283,7 +293,7 @@ dataForm.addEventListener('submit', async (event) => {
         });
 
         try {
-            const response = await fetch(`/api/events/${id}`, {
+            const response = await fetch(`http://localhost:3000/api/events/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -293,10 +303,8 @@ dataForm.addEventListener('submit', async (event) => {
 
             if (response.ok) {
                 const data = await response.json();
-                // Update the UI with the new data (optional, depending on your approach)
                 alert('Event updated successfully!');
-                // Refresh or re-fetch data to reflect changes
-                location.reload(); // Simple way to refresh the data display
+                location.reload(); // Refresh to reflect changes
             } else {
                 const error = await response.json();
                 alert(`Error: ${error.message}`);
@@ -306,4 +314,89 @@ dataForm.addEventListener('submit', async (event) => {
             alert('Failed to update the event. Please try again.');
         }
     });
+
 })
+document.addEventListener('DOMContentLoaded', () => {
+    // Get references to the delete confirmation popup and buttons
+    const deleteConfirmationPopup = document.getElementById('delete-confirmation-popup');
+    const confirmDeleteButton = document.getElementById('confirm-delete');
+    const cancelDeleteButton = document.getElementById('cancel-delete');
+    const feedbackMessage = document.getElementById('feedback-message');
+
+    let itemIdToDelete = null; // To store the ID of the item to be deleted
+
+    // Function to open the delete confirmation popup
+    function openDeleteConfirmation(event) {
+        itemIdToDelete = event.target.getAttribute('data-id'); // Get the item ID from the data attribute
+        console.log(`Open delete confirmation for item ID: ${itemIdToDelete}`); // Log the item ID
+        deleteConfirmationPopup.style.display = 'flex'; // Show the popup
+    }
+
+    // Function to attach event listeners to delete buttons
+    function attachDeleteListeners() {
+        const deleteButtons = document.querySelectorAll('.delete');
+        console.log(`Found ${deleteButtons.length} delete buttons.`); // Log the number of buttons found
+
+        deleteButtons.forEach(button => {
+            console.log('Attaching click event to delete button:', button); // Log each button
+            button.addEventListener('click', openDeleteConfirmation); // Attach click event
+        });
+    }
+
+    // Attach listeners after rendering the buttons
+    attachDeleteListeners();
+
+    // Event listener for the cancel delete button
+    cancelDeleteButton.addEventListener('click', () => {
+        console.log('Cancel delete button clicked. Hiding confirmation popup.'); // Log cancel action
+        deleteConfirmationPopup.style.display = 'none'; // Hide the confirmation popup
+        itemIdToDelete = null; // Reset the item ID
+    });
+
+    // Event listener for the confirm delete button
+    confirmDeleteButton.addEventListener('click', async () => {
+        console.log('Confirm delete button clicked.');
+        if (itemIdToDelete) {
+            try {
+                // Show feedback message for deleting
+                feedbackMessage.innerText = 'Deleting event...';
+                feedbackMessage.style.display = 'block';
+
+                // Send a DELETE request to remove the item
+                const response = await fetch(`http://localhost:3000/api/events/${itemIdToDelete}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to delete the event');
+                }
+
+                console.log('Event deleted successfully');
+
+                // Optionally, remove the item from the UI
+                const eventItem = document.querySelector(`.event-item[data-id="${itemIdToDelete}"]`);
+                if (eventItem) {
+                    eventItem.remove(); // Remove the event item from the UI
+                    console.log(`Event item with ID ${itemIdToDelete} removed from UI`);
+                }
+
+                // Show success feedback
+                feedbackMessage.innerText = 'Event deleted successfully!';
+                feedbackMessage.style.color = 'green'; // Change color to green
+                setTimeout(() => {
+                    feedbackMessage.style.display = 'none'; // Hide feedback after 3 seconds
+                }, 3000);
+                
+                deleteConfirmationPopup.style.display = 'none'; // Hide the confirmation popup
+                itemIdToDelete = null; // Reset itemIdToDelete
+            } catch (error) {
+                console.error('Error:', error);
+                feedbackMessage.innerText = 'Error deleting event. Please try again.';
+                feedbackMessage.style.color = 'red'; // Change color to red
+                feedbackMessage.style.display = 'block'; // Show error feedback
+            }
+        } else {
+            console.error('No item ID to delete');
+        }
+    });
+});

@@ -11,9 +11,9 @@
   {
     "id": 2,
     "imageUrl": "https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    "title": "Food and Wine Expo",
-    "price": 75,
-    "date": "September 25, 2021",
+    "title": "Food and Wine Expo 2024",
+    "price": "75",
+    "date": "2024-10-12",
     "location": "Moscone Center, San Francisco",
     "company": "Food and Wine Events LLC"
   },
@@ -93,14 +93,14 @@
     "id": 11,
     "title": "Eammon's Birthday",
     "imageUrl": "https://images.unsplash.com/photo-1620435363451-b84b06e6de72?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlJTIwaW1hZ2VzfGVufDB8fDB8fHww",
-    "price": 50,
+    "price": "50",
     "date": "2024-10-10",
     "location": "Central Park, New York City",
     "company": "Microsoft"
   },
   {
     "id": 12,
-    "title": "Edited Event again once",
+    "title": "Edited Event again once ok",
     "imageUrl": "http://example.com/image.jpg",
     "price": 8000,
     "date": "2024-10-03",
@@ -112,6 +112,15 @@
     "title": "Pink Room Adventures",
     "imageUrl": "https://media.istockphoto.com/id/1666100556/photo/opening-door-to-the-nature.webp?a=1&b=1&s=612x612&w=0&k=20&c=lENpnky4xL0ENT3I9GRqEqnTSTs6BJhm5u2DyokGg_g=",
     "price": 80,
+    "date": "2024-10-12",
+    "location": "Nakuru, Kenya",
+    "company": "Google"
+  },
+  {
+    "id": 15,
+    "title": "Nature Lounge",
+    "imageUrl": "https://plus.unsplash.com/premium_photo-1675127367074-b9db6d6da6d7?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEwfHx8ZW58MHx8fHx8",
+    "price": 45,
     "date": "2024-10-12",
     "location": "Nakuru, Kenya",
     "company": "Google"

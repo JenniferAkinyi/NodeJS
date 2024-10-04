@@ -1,7 +1,7 @@
 @import '.reset.css';
 @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&display=swap');
 
-:root{
+:root {
     --rose50: hsl(20, 50%, 98%);
     --rose100: hsl(13, 31%, 94%);
     --rose300: hsl(14, 25%, 72%);
@@ -9,6 +9,7 @@
     --rose500: hsl(12, 20%, 44%);
     --rose900: hsl(14, 65%, 9%);
 }
+
 *,
 *::before,
 *::after {
@@ -17,18 +18,18 @@
     padding: 0;
 }
 
-img{
+img {
     display: block;
     max-width: 100%;
     background-size: cover;
 }
 
-.body{
+.body {
     padding: 2rem 4rem;
     font-family: 'Red Hat Text', sans-serif;
 }
 
-nav{
+nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -36,30 +37,35 @@ nav{
     background-color: var(--rose100);
 
 }
-.buttons{
+
+.buttons {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
 
 }
-.buttons .btn{
+
+.buttons .btn {
     background-color: navy;
     color: white;
     padding: 0.5rem 1rem;
     border: none;
 }
-.cart-display{
+
+.cart-display {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
     position: relative;
 }
-#cart-icon{
+
+#cart-icon {
     border: none;
 }
-.cart-display .cart-count{
+
+.cart-display .cart-count {
     background-color: red;
     color: white;
     padding: 0.4rem;
@@ -71,24 +77,24 @@ nav{
     /* display: none; */
 }
 
-#content-display{
+#content-display {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1rem;
     margin: 2rem;
 }
 
-.content{
+.content {
     border: 1px solid black;
 }
 
-.content img{
+.content img {
     width: 100%;
     height: 200px;
     object-fit: cover;
 }
 
-.content__description{
+.content__description {
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -96,7 +102,8 @@ nav{
     text-align: center;
     align-items: center;
 }
-.content__description button{ 
+
+.content__description button {
     padding: 0.5rem;
     background-color: navy;
     font-weight: 500;
@@ -106,13 +113,14 @@ nav{
     margin-right: 0.5rem;
     margin-bottom: 0.8rem;
 }
+
 .content__description .action-buttons {
-    display: flex; 
-    margin-top: 0.5rem; 
+    display: flex;
+    margin-top: 0.5rem;
     gap: 2rem;
 }
 
-.cart-products{
+.cart-products {
     width: 400px;
     background-color: var(--rose300);
     color: white;
@@ -127,13 +135,15 @@ nav{
     /* display: grid;
     grid-template-columns: 70px 1fr 70px; */
 }
-.cart-products h1{
+
+.cart-products h1 {
     padding: 1rem;
     margin-bottom: 1rem;
     text-align: center;
     font-weight: 700;
 }
-.cart-products .cart-list{
+
+.cart-products .cart-list {
     flex-grow: 1;
     overflow-y: auto;
     padding: 0.5rem;
@@ -142,6 +152,7 @@ nav{
     border-radius: 10px;
     margin-bottom: 1rem;
 }
+
 .cart-products .cart-item {
     display: flex;
     justify-content: space-between;
@@ -155,12 +166,14 @@ nav{
     text-align: center;
     margin-bottom: 1rem;
 }
-.cart-products .cart-button{
+
+.cart-products .cart-button {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
 }
-.cart-products .cart-button button{
+
+.cart-products .cart-button button {
     background-color: var(--rose900);
     color: white;
     border: none;
@@ -169,10 +182,12 @@ nav{
     font-weight: 500;
     transition: background-color 0.3s ease;
 }
+
 .cart-products .cart-item p {
     margin: 0;
     font-size: 1rem;
 }
+
 /* Hide cart initially */
 .cart-products {
     display: none;
@@ -183,54 +198,56 @@ nav{
     display: block;
 }
 
-.popup-form{
-    /* display: none;  */
+.popup-form {
+    display: none;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
+    background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
-    margin-inline: auto;
 }
 
 .form-content {
-    background-color: white; 
+    background-color: white;
     padding: 20px;
     border-radius: 8px;
-    width: 400px; 
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    width: 400px;
+    max-height: 100vh;
+    overflow-y: auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
-    margin-bottom: 15px; 
+    margin-bottom: 10px;
 }
 
 label {
-    display: block; 
-    margin: 10px 0 5px; 
+    display: block;
+    margin: 9px 0 px;
 }
 
 input {
-    width: 100%; 
-    padding: 8px; 
-    margin-bottom: 15px; 
-    border: 1px solid #ccc; 
-    border-radius: 4px; 
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 button[type="submit"] {
-    width: 100%; 
-    padding: 10px; 
-    background-color: navy; 
-    color: white; 
-    border: none; 
-    border-radius: 4px; 
-    cursor: pointer; 
+    width: 100%;
+    padding: 10px;
+    background-color: navy;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
+
 .popup {
     display: none;
     position: fixed;
@@ -257,9 +274,10 @@ button[type="submit"] {
 
 .popup-content img {
     width: 100%;
-    height: auto;
+    height: 200px;
     border-radius: 8px;
     margin-bottom: 10px;
+    object-fit: cover;
 }
 
 .popup-content .close {
@@ -271,4 +289,91 @@ button[type="submit"] {
     color: red;
 }
 
+/* Edit popup form */
+#edit-popup-form {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    
+}
 
+#edit-popup-form .form-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-height: 100vh;
+    overflow-y: auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    position: relative;
+}
+
+#edit-popup-form h2 {
+    margin-bottom: 15px;
+}
+
+#edit-popup-form label {
+    display: block;
+    margin: 10px 0 px;
+}
+
+#edit-popup-form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#edit-popup-form button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: navy;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#edit-popup-form .close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 30px;
+    color: red;
+    cursor: pointer;
+}
+
+/* delete an event */
+#delete-confirmation-popup {
+    display: none;
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#delete-confirmation-popup .form-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+}
