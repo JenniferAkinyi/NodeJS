@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Ecommerce</title>
+</head>
+
+<body>
+    <section>
+        <nav>
+            <div class="buttons">
+                <button class="btn" id="price-desc">Descending Price(High to Low)</button>
+                <button class="btn" id="price-asc">Ascending Price(Low to High)</button>
+                <button class="btn" id="date">Sorted by Date</button>
+                <button class="btn" id="add-data-button">Add Data</button>
+            </div>
+            <div class="cart-display">
+                <button id="cart-icon">
+                    <img src="./images/cart.png" alt="">
+                    <span class="cart-count">0</span>
+                </button>
+
+            </div>
+            </div>
+        </nav>
+        <div class="cart-products">
+            <h1>Shopping Cart</h1>
+            <div class="cart-items" id="list-products">
+                <!-- insert cart items -->
+
+            </div>
+            <div class="cart-subtotal">
+                <p>Subtotal: <span id="cart-subtotal">0</span>Ksh</p>
+            </div>
+            <div class="cart-button">
+                <button class="btn" id="close-cart">Close</button>
+                <button class="btn" id="checkout">Checkout</button>
+            </div>
+
+        </div>
+        <div class="content-display" id="content-display">
+
+        </div>
+    </section>
+
+    <!-- Popup form -->
+    <div class="popup-form" id="popup-form">
+        <div class="form-content">
+            <span class="close" id="close-popup">&times;</span>
+            <h2>Add New Item</h2>
+            <form id="dataForm">
+                <label for="imageUrl">Image URL:</label>
+                <input type="url" id="imageUrl" name="imageUrl" required />
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required />
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price" required />
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required />
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" required />
+                <label for="company">Company: </label>
+                <input type="text" id="company" name="company" required />
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- view pop up -->
+    <div class="popup" id="view-popup" style="display: none;">
+        <div class="popup-content">
+            <span class="close" id="close-view-popup">&times;</span>
+            <h2 id="popup-title"></h2>
+            <img id="popup-image" src="" alt="Event Image">
+            <p id="popup-date"></p>
+            <p id="popup-location"></p>
+            <p id="popup-company"></p>
+            <p>Price: Ksh. <span id="popup-price"></span></p>
+        </div>
+    </div>
+
+    <!-- edit pop up -->
+    <div class="popup-form" id="edit-popup-form">
+        <div class="form-content">
+            <span class="close" id="close-edit-popup">&times;</span>
+            <h2>Edit Item</h2>
+            <form id="editDataForm">
+                <label for="edit-imageUrl">Image URL:</label>
+                <input type="url" id="edit-imageUrl" name="imageUrl" required />
+                <label for="edit-title">Title:</label>
+                <input type="text" id="edit-title" name="title" required />
+                <label for="edit-price">Price:</label>
+                <input type="number" id="edit-price" name="price" required />
+                <label for="edit-date">Date:</label>
+                <input type="date" id="edit-date" name="date" required />
+                <label for="edit-location">Location:</label>
+                <input type="text" id="edit-location" name="location" required />
+                <label for="edit-company">Company: </label>
+                <input type="text" id="edit-company" name="company" required />
+                <button type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="./cart.js"></script>
+</body>
+
+</html>
