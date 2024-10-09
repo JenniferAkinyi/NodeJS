@@ -1,0 +1,27 @@
+{
+  "done": true,
+  "migration": {
+    "name": "mig_cs2ig654rshpd1p6d3pg",
+    "operations": [
+      {
+        "add_column": {
+          "up": "0",
+          "table": "Events",
+          "column": {
+            "pk": false,
+            "name": "Price",
+            "type": "float",
+            "unique": false,
+            "comment": "",
+            "nullable": false
+          }
+        }
+      }
+    ]
+  },
+  "migrationType": "pgroll",
+  "name": "mig_cs2ig654rshpd1p6d3pg",
+  "parent": "mig_cs2ifud4rshpd1p6d3og",
+  "schema": "public",
+  "startedAt": "2024-10-08T12:39:53.462016Z"
+}

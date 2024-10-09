@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Jenn-A-s-workspace-55jt5r.us-east-1.xata.sh/db/events-database",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}
